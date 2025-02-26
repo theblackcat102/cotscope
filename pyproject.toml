@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cotscope"
+version = "0.0.1"
+authors = [
+  { name = "Ray", email = "theblackcat102@github.io" },
+]
+description = "A library of analyzing the chain of thought reasoning for reasoning models"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+]
+license = "Apache-2.0"
+license-files = ["LICENSE*"]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "httpx>=0.27.0"
+]
+server = [
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+    "pydantic-settings>=2.1.0",
+]
+cli = [
+    "typer>=0.9.0",
+    "rich>=13.7.0",
+    "pyyaml>=6.0.1",
+    "httpx>=0.27.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/theblackcat102/cotscope"
+"Bug Tracker" = "https://github.com/theblackcat102/cotscope/issues"
+
+
+[tool.hatch.build]
+packages = [
+    "cotscope",
+    "tools.cli.rgc"
+]
+include = [
+    "cotscope/**/*.py",
+    "cotscope/**/*.txt",
+    "cotscope/**/levels/*",
+    "tools/cli/rgc/**/*.py"
+]
+
+[project.scripts]
+rgc = "tools.cli.rgc.main:main"
+
+[tool.black]
+line-length = 120
+target-version = ['py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 120
+
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = ["tests"]
